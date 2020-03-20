@@ -59,7 +59,14 @@ namespace SImpleWebApi.Controllers
             }
             return BadRequest("Can't create new person");
         }
-
-
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePerson(int id,[FromBody] Person person)
+        {
+            if (personService.Update(id, person))
+            {
+                return Ok("Successfully updated!");
+            }
+            return BadRequest("Can't update this object");
+        }
     }
 }
