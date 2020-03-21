@@ -6,8 +6,22 @@ namespace SimpleWebApi.Data.Repository
 {
     class MemoryRepository
     {
+        private static MemoryRepository _instance;
         public List<Person> People { get; set; }
-        public MemoryRepository()
+
+        public static MemoryRepository Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new MemoryRepository();
+                }
+                return _instance;
+            }
+        }
+
+        private MemoryRepository()
         {
             People = new List<Person>
             {
@@ -89,10 +103,20 @@ namespace SimpleWebApi.Data.Repository
             {
                 return AddPerson(person);
             }
-            personForUpdate = person;
-            
+
+            SetAttributes(personForUpdate, person);
+           
             return true;
         }
 
+        private void SetAttributes(Person personForUpdate, Person person)
+        {
+            personForUpdate.Id = person.Id;
+            personForUpdate.FirstName = person.FirstName;
+            personForUpdate.LastName = person.LastName;
+            personForUpdate.Country = person.Country;
+            personForUpdate.Age = person.Age;
+            personForUpdate.IsHeMarryed = person.IsHeMarryed;
+        }
     }
 }

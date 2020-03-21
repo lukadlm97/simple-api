@@ -8,10 +8,10 @@ namespace SimpleWebApi.Data.Service
 {
     public class PersonService : IPerson
     {
-        private MemoryRepository memoryRepository;
+        private MemoryRepository memoryRepository = MemoryRepository.Instance;
         public PersonService()
         {
-            memoryRepository = new MemoryRepository();
+            
         }
         public bool Add(Person person)
         {
