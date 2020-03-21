@@ -11,5 +11,6 @@ namespace SimpleWebApi.Data.Service.Specification
         bool Update(int id, Person person);
         bool Delete(int id);
         bool Add(Person person);
+        bool UpdateHobby(int id, Person person);
     }
 }

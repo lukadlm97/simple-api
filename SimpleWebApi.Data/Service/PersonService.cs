@@ -37,5 +37,10 @@ namespace SimpleWebApi.Data.Service
         {
             return memoryRepository.UpdatePerson(id, person);
         }
+
+        public bool UpdateHobby(int id, Person person)
+        {
+            return memoryRepository.UpdateHobby(id, person);
+        }
     }
 }

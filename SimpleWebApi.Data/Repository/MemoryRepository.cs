@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleWebApi.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -32,7 +33,12 @@ namespace SimpleWebApi.Data.Repository
                     LastName = "Radovanovic",
                     Age = 22,
                     Country = "Serbia",
-                    IsHeMarryed = false
+                    IsHeMarryed = false,
+                    Hobby = new Hobby()
+                    {
+                        Id=1,
+                        Name="Running"
+                    }
                 },
                 new Person
                 {
@@ -41,7 +47,12 @@ namespace SimpleWebApi.Data.Repository
                     LastName = "Zigic",
                     Age = 39,
                     Country = "Serbia",
-                    IsHeMarryed = true
+                    IsHeMarryed = true,
+                    Hobby = new Hobby()
+                    {
+                        Id=2,
+                        Name="Music"
+                    }
                 },
                 new Person
                 {
@@ -50,9 +61,33 @@ namespace SimpleWebApi.Data.Repository
                     LastName = "Jovic",
                     Age = 23,
                     Country = "Serbia",
-                    IsHeMarryed = false
+                    IsHeMarryed = false,
+                    Hobby = new Hobby()
+                    {
+                        Id=3,
+                        Name="Reading"
+                    }
                 },
             };
+        }
+
+        internal bool UpdateHobby(int id, Person person)
+        {
+            Person personForUpdate = GetPersonById(id);
+            if(personForUpdate == null)
+            {
+                return false;
+            }
+
+            SetHobbyAttributes(personForUpdate, person.Hobby);
+
+            return true;
+        }
+
+        private void SetHobbyAttributes(Person personForUpdate, Hobby hobby)
+        {
+            personForUpdate.Hobby.Id = hobby.Id;
+            personForUpdate.Hobby.Name = hobby.Name;
         }
 
         public List<Person> GetPeople()

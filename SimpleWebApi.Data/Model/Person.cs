@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleWebApi.Data.Model;
+using System;
 
 namespace SimpleWebApi.Data
 {
@@ -10,5 +11,6 @@ namespace SimpleWebApi.Data
         public int Age { get; set; }
         public string Country { get; set; }
         public bool IsHeMarryed { get; set; }
+        public Hobby Hobby { get; set; }
     }
 }
