@@ -99,7 +99,7 @@ namespace SimpleWebApi.Data.Repository
         {
             int id = -1;
 
-            FoundHobbyId(id);  
+            FoundHobbyId(ref id);  
 
             if (id == -1)
                 return 1;
@@ -107,7 +107,7 @@ namespace SimpleWebApi.Data.Repository
             return id;
         }
 
-        private void FoundHobbyId(int id)
+        private void FoundHobbyId(ref int id)
         {
             foreach (Person person in People)
             {
@@ -128,13 +128,13 @@ namespace SimpleWebApi.Data.Repository
             int id = -1;
             if (People == null)
                 return 1;
-            FoundId(id);
+            FoundId(ref id);
             if (id == -1)
                 return 1;
             return id;
         }
 
-        public void FoundId(int id)
+        public void FoundId(ref int id)
         {
             foreach (Person person in People)
             {

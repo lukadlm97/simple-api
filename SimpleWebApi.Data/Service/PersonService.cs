@@ -22,7 +22,7 @@ namespace SimpleWebApi.Data.Service
 
         private int GetMaxPersonId()
         {
-            return memoryRepository.GetMaxIdPeople();
+            return memoryRepository.GetMaxIdPeople()+1;
         }
 
         public bool Delete(int id)
@@ -58,7 +58,7 @@ namespace SimpleWebApi.Data.Service
 
         private int GetMaxHobbyId()
         {
-            return memoryRepository.GetMaxHobbyId();
+            return memoryRepository.GetMaxHobbyId()+1;
         }
     }
 }
