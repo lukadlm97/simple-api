@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleWebApi.Data;
+using SimpleWebApi.Data.Model;
 using SimpleWebApi.Data.Service;
 namespace SImpleWebApi.Controllers
 {
@@ -25,6 +26,15 @@ namespace SImpleWebApi.Controllers
                 return Ok("Object has been successfully updated.");
             }
             return BadRequest("Bad Request!");
+        }
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddHobby(int id,[FromBody] Hobby hobby)
+        {
+            if (personService.AddNewHobby(id, hobby))
+            {
+                return Ok("Hobby has been successfully added.");
+            }
+            return BadRequest("Someting went wrong!");
         }
     }
 }

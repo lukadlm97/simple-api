@@ -34,10 +34,18 @@ namespace SimpleWebApi.Data.Repository
                     Age = 22,
                     Country = "Serbia",
                     IsHeMarryed = false,
-                    Hobby = new Hobby()
+                     Hobbies = new List<Hobby>
                     {
-                        Id=1,
-                        Name="Running"
+                           new Hobby
+                           {
+                               Id = 5,
+                               Name ="Running"
+                           },
+                           new Hobby
+                           {
+                               Id=6,
+                               Name="Reading"
+                           }
                     }
                 },
                 new Person
@@ -48,10 +56,18 @@ namespace SimpleWebApi.Data.Repository
                     Age = 39,
                     Country = "Serbia",
                     IsHeMarryed = true,
-                    Hobby = new Hobby()
+                     Hobbies = new List<Hobby>
                     {
-                        Id=2,
-                        Name="Music"
+                           new Hobby
+                           {
+                               Id = 3,
+                               Name = "Reading"
+                           },
+                           new Hobby
+                           {
+                               Id = 4,
+                               Name = "Biliars"
+                           }
                     }
                 },
                 new Person
@@ -62,32 +78,112 @@ namespace SimpleWebApi.Data.Repository
                     Age = 23,
                     Country = "Serbia",
                     IsHeMarryed = false,
-                    Hobby = new Hobby()
+                    Hobbies = new List<Hobby>
                     {
-                        Id=3,
-                        Name="Reading"
+                           new Hobby
+                           {
+                               Id = 1,
+                               Name ="Basketball"
+                           },
+                           new Hobby
+                           {
+                               Id = 2,
+                               Name = "Swimming"
+                           }
                     }
                 },
             };
         }
+        
+        internal int GetMaxHobbyId()
+        {
+            int id = -1;
+
+            FoundHobbyId(id);  
+
+            if (id == -1)
+                return 1;
+
+            return id;
+        }
+
+        private void FoundHobbyId(int id)
+        {
+            foreach (Person person in People)
+            {
+                if (person.Hobbies == null)
+                {
+                    continue;
+                }
+                foreach (Hobby hobby in person.Hobbies)
+                {
+                    if (hobby.Id > id)
+                        id = hobby.Id;
+                }
+            }
+        }
+
+        public int GetMaxIdPeople()
+        {
+            int id = -1;
+            if (People == null)
+                return 1;
+            FoundId(id);
+            if (id == -1)
+                return 1;
+            return id;
+        }
+
+        public void FoundId(int id)
+        {
+            foreach (Person person in People)
+            {
+                if (person.Id > id)
+                    id = person.Id;
+            }
+        }
+
+        public bool AddNewHobby(int id,Hobby hobby)
+        {
+            Person person = GetPersonById(id);
+
+            if(person == null)
+            {
+                return false;
+            }
+
+            person.Hobbies.Add(hobby);
+
+            return true;
+        }
+
 
         internal bool UpdateHobby(int id, Person person)
         {
             Person personForUpdate = GetPersonById(id);
+
             if(personForUpdate == null)
             {
                 return false;
             }
 
-            SetHobbyAttributes(personForUpdate, person.Hobby);
+            foreach(Hobby hobby in personForUpdate.Hobbies)
+            {
+                SetHobbyAttributes(person, hobby);
+            }
 
             return true;
         }
 
-        private void SetHobbyAttributes(Person personForUpdate, Hobby hobby)
+        private void SetHobbyAttributes(Person person, Hobby hobby)
         {
-            personForUpdate.Hobby.Id = hobby.Id;
-            personForUpdate.Hobby.Name = hobby.Name;
+            foreach(Hobby hobbyForUpdate in person.Hobbies)
+            {
+                if(hobbyForUpdate.Id == hobby.Id)
+                {
+                    hobby.Name = hobbyForUpdate.Name;
+                }
+            }
         }
 
         public List<Person> GetPeople()

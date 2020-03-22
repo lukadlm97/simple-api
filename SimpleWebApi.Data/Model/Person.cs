@@ -1,5 +1,6 @@
 ﻿using SimpleWebApi.Data.Model;
 using System;
+using System.Collections.Generic;
 
 namespace SimpleWebApi.Data
 {
@@ -11,6 +12,6 @@ namespace SimpleWebApi.Data
         public int Age { get; set; }
         public string Country { get; set; }
         public bool IsHeMarryed { get; set; }
-        public Hobby Hobby { get; set; }
+        public List<Hobby>  Hobbies { get; set; }
     }
 }

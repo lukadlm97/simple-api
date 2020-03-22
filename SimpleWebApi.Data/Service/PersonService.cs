@@ -1,4 +1,5 @@
-﻿using SimpleWebApi.Data.Repository;
+﻿using SimpleWebApi.Data.Model;
+using SimpleWebApi.Data.Repository;
 using SimpleWebApi.Data.Service.Specification;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,13 @@ namespace SimpleWebApi.Data.Service
         }
         public bool Add(Person person)
         {
+            person.Id = GetMaxPersonId();
             return memoryRepository.AddPerson(person);
+        }
+
+        private int GetMaxPersonId()
+        {
+            return memoryRepository.GetMaxIdPeople();
         }
 
         public bool Delete(int id)
@@ -41,6 +48,17 @@ namespace SimpleWebApi.Data.Service
         public bool UpdateHobby(int id, Person person)
         {
             return memoryRepository.UpdateHobby(id, person);
+        }
+
+        public bool AddNewHobby(int id,Hobby hobby)
+        {
+            hobby.Id = GetMaxHobbyId();
+            return memoryRepository.AddNewHobby(id, hobby);
+        }
+
+        private int GetMaxHobbyId()
+        {
+            return memoryRepository.GetMaxHobbyId();
         }
     }
 }
